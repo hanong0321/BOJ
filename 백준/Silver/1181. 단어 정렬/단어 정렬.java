@@ -27,15 +27,18 @@ public class Main {
             }
         }
         list = Arrays.stream(list).distinct().toArray(String[]::new);
+        //Arrays.stream => 배열을 스트림 (Stream<String>)으로 변환
+        // .distinct() 스트림에서 중복된 요소 제거 (Set 처럼 동작한다)
+        // .toArray(String[]::new) 스트림의 요소들을 Stirng[]타입의 배열로 변환하여 반환
         N = list.length;
 
         int i = 0;
-        while (i < N - 1) {
+        while (i < N - 1) { // N = 13 // i < 12 까지니까 i == 11번 인덱스까지
             int idx = i;
             while (idx + 1 < N && list[idx].length() == list[idx + 1].length()) {
                 idx++;
             }
-            Arrays.sort(list, i, idx + 1); // idx+1까지 정렬
+            Arrays.sort(list, i, idx + 1); // i ~ idx 까지 정렬
             i = idx + 1;
         }
 
