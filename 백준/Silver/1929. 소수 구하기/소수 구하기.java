@@ -3,15 +3,24 @@ import java.util.*;
 
 public class Main {
 
-    public static boolean chkPrimeNum(int a) {
+    static boolean [] isPrime;
 
-        if(a < 2) return false;
-        
-        for (long i = 2; i * i <= a; i++) {
-            if (a % i == 0) return false;
+    public static void isPrime_fun(int n) {
+        isPrime = new boolean [n + 1];
+
+//        for (int i = 0; i < isPrime.length; i++) {
+//            isPrime[i] = true;
+//        }
+        Arrays.fill(isPrime, true);
+        isPrime[0] = isPrime[1] = false;
+
+        for (int i = 2; i * i <= n; i++) {
+            if(isPrime[i]) { //소수라면
+                for(int j = i * i; j <= n; j += i) {
+                    isPrime[j] = false; // i의 배수는 소수 x
+                }
+            }
         }
-
-        return true;
     }
 
     public static void main(String[] args) throws IOException {
@@ -22,8 +31,11 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
+            isPrime_fun(M); // 최대범위인 M까지만 구함
+
         for(int i = N; i <= M; i++)
-            if(chkPrimeNum(i)) bw.write(i + "\n");
+            if(isPrime[i])
+                bw.write(i + "\n");
 
         bw.close();
     }
